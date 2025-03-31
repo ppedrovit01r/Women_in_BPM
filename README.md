@@ -3,36 +3,36 @@ Este projeto utiliza metadados de artigos acadêmicos (extraídos de ferramentas
 Apesar do foco inicial em Business Process Management (BPM), a solução é adaptável a qualquer área do conhecimento e pode ser estendida para análises de diversidade além do gênero feminino.
 
 ## Estrutura
-pasta_principal/  
-│  
-├── 📄 assess_gender_pedro_namsor.py       # Processa os artigos científicos e determina o gênero dos autores. 
-├── 📄 assess_gender_pedro.py              # Script Python para API Genderize.io 
-├── 📄 assess_gender_pedro_genderapi.py    # Script Python para API Gender API
-├── 📄 assess_gender_pedro_nameapi.py      # Script Python para API NameAPI
-├── 📄 womenLib.csv                        # Dataset principal em CSV  
-├── 📄 womenLibrary.bib                    # Bibliografia (formato BibTeX)  
-│  
-├── 📁 .vscode/                            # Configurações da IDE (ignorar)  
-│   └── 📄 settings.json                   # Configurações específicas do VSCode  
-│  
-├── 📁 minuzzo/                            # Arquivos legados da pesquisadora Thayna Minuzzo  
-│   ├── 📄 assess_gender.py                # Versão anterior do código Script Python (referência)  
-│   ├── 📄 generate_insights_authors.py    # Gera estatísticas sobre autores por ano (referência) 
-│   ├── 📄 scatter_map.py                  # Gera um mapa de dispersão com localizações (parece incompleto; referência) 
-│   ├── 📄 send_authors_data.py            # Envia os dados processados para um servidor Elasticsearch (referência) 
-│   ├── 📄 send_files.py                   # Envia os dados processados para um servidor Elasticsearch (referência) 
-│   └── 📄 wordcould.csv                   # Cria uma nuvem de palavras com as tags manuais dos artigos (referência; deveria ser wordcloud.py) 
-│  
-├── 📁 auxiliar/                           # Arquivos auxiliares para encontrar dados extra
-│   ├── 📄 count_names.py                  # Encontra quantas repetições de nomes há no arquivo .csv
-│   ├── 📄 names_pedro.py                  # Cria uma lista de todos os primeiros nomes do arquivo .csv  
-│   └── 📄 names.csv                       # Lista de nomes retornada pelo script names_pedro.py  
+pasta_principal/
 │
-└── 📁 assessed/                           # Resultados processados pela aplicação  
-    ├── 📄 Authors_{timestamp}.csv         # Análise do gênero para cada autor 
-    ├── 📄 LibAssessed_{timestamp}.csv     # Análise numérica de gênero por artigo
-    ├── 📄 YearlyReport_{timestamp}.csv    # Análise numérica de gênero dos autores por ano
-    └── 📄 gender_cache.json               # Registro nomes acessados anteriormente para economia de recursos 
+├── 📄 assess_gender_pedro_namsor.py       # Versão principal que processa artigos usando Namsor API
+├── 📄 assess_gender_pedro.py              # Versão alternativa usando Genderize.io API
+├── 📄 assess_gender_pedro_genderapi.py    # Versão alternativa usando Gender API
+├── 📄 assess_gender_pedro_nameapi.py      # Versão alternativa usando NameAPI
+├── 📄 womenLib.csv                        # Base de dados principal (exportada do Zotero)
+├── 📄 womenLibrary.bib                    # Referências bibliográficas no formato BibTeX
+│
+├── 📁 .vscode/                            # [IGNORAR] Configurações do ambiente de desenvolvimento
+│   └── 📄 settings.json                   # Configurações específicas do VSCode
+│
+├── 📁 minuzzo/                            # Código legado da pesquisadora Thayna Minuzzo
+│   ├── 📄 assess_gender.py                # Versão original do processamento de gênero
+│   ├── 📄 generate_insights_authors.py    # Gera estatísticas de autores por ano
+│   ├── 📄 scatter_map.py                  # Mapa de dispersão (em desenvolvimento)
+│   ├── 📄 send_authors_data.py            # Exportação para ElasticSearch (autores)
+│   ├── 📄 send_files.py                   # Exportação para ElasticSearch (artigos)
+│   └── 📄 wordcould.py                    # Nuvem de palavras das tags manuais
+│
+├── 📁 auxiliar/                           # Ferramentas de suporte
+│   ├── 📄 count_names.py                  # Conta frequência de nomes na base
+│   ├── 📄 names_pedro.py                  # Extrai lista de primeiros nomes
+│   └── 📄 names.csv                       # Saída do names_pedro.py
+│
+└── 📁 assessed/                           # Resultados das análises
+    ├── 📄 Authors_*.csv                   # Dados completos por autor (timestamp)
+    ├── 📄 LibAssessed_*.csv               # Metadados processados por artigo
+    ├── 📄 YearlyReport_*.csv              # Estatísticas anuais de gênero
+    └── 📄 gender_cache.json               # Cache de consultas a APIs
 
 ## Como Usar?
 ### Pré-requisitos
