@@ -1,0 +1,110 @@
+{
+  "angelina": {
+    "gender": "female",
+    "probability": 0.9999985608863713
+  },
+  "rahma": {
+    "gender": "female",
+    "probability": 0.9998064097098313
+  },
+  "olvy": {
+    "gender": "female",
+    "probability": 0.9945324641804937
+  },
+  "elisabeth": {
+    "gender": "female",
+    "probability": 0.9999863239219225
+  },
+  "sandeep": {
+    "gender": "male",
+    "probability": 0.9976197418104102
+  },
+  "r.": {
+    "gender": "male",
+    "probability": 0.55007582920075
+  },
+  "ch.": {
+    "gender": "male",
+    "probability": 0.976819485412467
+  },
+  "gunasekaran": {
+    "gender": "male",
+    "probability": 0.9984340528359693
+  },
+  "thalea": {
+    "gender": "female",
+    "probability": 0.9989913940523091
+  },
+  "agung": {
+    "gender": "male",
+    "probability": 0.9938229867218071
+  },
+  "satria": {
+    "gender": "male",
+    "probability": 0.9554897091054304
+  },
+  "elsa": {
+    "gender": "female",
+    "probability": 0.9999918665576765
+  },
+  "xiaoxuan": {
+    "gender": "female",
+    "probability": 0.8960961947243915
+  },
+  "lin": {
+    "gender": "female",
+    "probability": 0.9884401263971199
+  },
+  "renee": {
+    "gender": "female",
+    "probability": 0.999945939178646
+  },
+  "jiamou": {
+    "gender": "male",
+    "probability": 0.698407809006617
+  },
+  "mengxiao": {
+    "gender": "female",
+    "probability": 0.8914214489604044
+  },
+  "lumka": {
+    "gender": "female",
+    "probability": 0.9897812695221367
+  },
+  "frank": {
+    "gender": "male",
+    "probability": 0.999947578866658
+  },
+  "pedro": {
+    "gender": "male",
+    "probability": 0.9999821167297533
+  },
+  "pedroluis": {
+    "gender": "male",
+    "probability": 0.9999618342642592
+  },
+  "thanh": {
+    "gender": "male",
+    "probability": 0.9801043135052536
+  },
+  "kyoung": {
+    "gender": "female",
+    "probability": 0.7380283080828
+  },
+  "dinh": {
+    "gender": "male",
+    "probability": 0.9820941138175523
+  },
+  "thanhhai": {
+    "gender": "male",
+    "probability": 0.6775523481064768
+  },
+  "kyoungsook": {
+    "gender": "male",
+    "probability": 0.7289710911808452
+  },
+  "dinhlam": {
+    "gender": "male",
+    "probability": 0.6821120363259119
+  }
+}
