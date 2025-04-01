@@ -5,34 +5,34 @@ Apesar do foco inicial em Business Process Management (BPM), a solução é adap
 ## Estrutura
 pasta_principal/
 │
-├── 📄 assess_gender_pedro_namsor.py       # Versão principal que processa artigos usando Namsor API
-├── 📄 assess_gender_pedro.py              # Versão alternativa usando Genderize.io API
-├── 📄 assess_gender_pedro_genderapi.py    # Versão alternativa usando Gender API
-├── 📄 assess_gender_pedro_nameapi.py      # Versão alternativa usando NameAPI
-├── 📄 womenLib.csv                        # Base de dados principal (exportada do Zotero)
-├── 📄 womenLibrary.bib                    # Referências bibliográficas no formato BibTeX
+├── 📄 assess_gender_pedro_namsor.py - Versão principal que processa artigos usando Namsor API
+├── 📄 assess_gender_pedro.py - Versão alternativa usando Genderize.io API
+├── 📄 assess_gender_pedro_genderapi.py - Versão alternativa usando Gender API
+├── 📄 assess_gender_pedro_nameapi.py - Versão alternativa usando NameAPI
+├── 📄 womenLib.csv - Base de dados principal (exportada do Zotero)
+├── 📄 womenLibrary.bib - Referências bibliográficas no formato BibTeX
 │
-├── 📁 .vscode/                            # [IGNORAR] Configurações do ambiente de desenvolvimento
-│   └── 📄 settings.json                   # Configurações específicas do VSCode
+├── 📁 .vscode/ [IGNORAR]
+│ └── 📄 settings.json - Configurações específicas do VSCode
 │
-├── 📁 minuzzo/                            # Código legado da pesquisadora Thayna Minuzzo
-│   ├── 📄 assess_gender.py                # Versão original do processamento de gênero
-│   ├── 📄 generate_insights_authors.py    # Gera estatísticas de autores por ano
-│   ├── 📄 scatter_map.py                  # Mapa de dispersão (em desenvolvimento)
-│   ├── 📄 send_authors_data.py            # Exportação para ElasticSearch (autores)
-│   ├── 📄 send_files.py                   # Exportação para ElasticSearch (artigos)
-│   └── 📄 wordcould.py                    # Nuvem de palavras das tags manuais
+├── 📁 minuzzo/ - Código legado da pesquisadora Thayna Minuzzo
+│ ├── 📄 assess_gender.py - Versão original do processamento de gênero
+│ ├── 📄 generate_insights_authors.py - Gera estatísticas de autores por ano
+│ ├── 📄 scatter_map.py - Mapa de dispersão (em desenvolvimento)
+│ ├── 📄 send_authors_data.py - Exportação para ElasticSearch (autores)
+│ ├── 📄 send_files.py - Exportação para ElasticSearch (artigos)
+│ └── 📄 wordcould.py - Nuvem de palavras das tags manuais
 │
-├── 📁 auxiliar/                           # Ferramentas de suporte
-│   ├── 📄 count_names.py                  # Conta frequência de nomes na base
-│   ├── 📄 names_pedro.py                  # Extrai lista de primeiros nomes
-│   └── 📄 names.csv                       # Saída do names_pedro.py
+├── 📁 auxiliar/ - Ferramentas de suporte
+│ ├── 📄 count_names.py - Conta frequência de nomes na base
+│ ├── 📄 names_pedro.py - Extrai lista de primeiros nomes
+│ └── 📄 names.csv - Saída do names_pedro.py
 │
-└── 📁 assessed/                           # Resultados das análises
-    ├── 📄 Authors_*.csv                   # Dados completos por autor (timestamp)
-    ├── 📄 LibAssessed_*.csv               # Metadados processados por artigo
-    ├── 📄 YearlyReport_*.csv              # Estatísticas anuais de gênero
-    └── 📄 gender_cache.json               # Cache de consultas a APIs
+└── 📁 assessed/ - Resultados das análises
+├── 📄 Authors_.csv - Dados completos por autor (timestamp)
+├── 📄 LibAssessed_.csv - Metadados processados por artigo
+├── 📄 YearlyReport_*.csv - Estatísticas anuais de gênero
+└── 📄 gender_cache.json - Cache de consultas a APIs
 
 ## Como Usar?
 ### Pré-requisitos
