@@ -6,7 +6,7 @@ import requests
 from collections import defaultdict
 from time import sleep
 
-# --- Função para extrair país do campo 'Extra' (como antes) ---
+# --- Função para extrair país do campo 'Extra' ---
 def extract_country(text):
     if not isinstance(text, str):
         return None
