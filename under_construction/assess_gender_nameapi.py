@@ -12,7 +12,7 @@ AUTHORS_CSV = os.path.join(OUTPUT_DIR, 'womenLibAuthors.csv')
 
 # Configurações da NameAPI
 NAMEAPI_BASE_URL = 'https://api.nameapi.org/rest/v5.3/genderizer/persongenderizer'
-NAMEAPI_API_KEY = '7a0dcac1b1927cce2ca86385071963db-user1'  # Obtenha em https://www.nameapi.org/
+NAMEAPI_API_KEY = ''  # Obtenha em https://www.nameapi.org/
 CONFIDENCE_THRESHOLD = 0.75  # 75% de confiança mínima
 
 # Criar diretório de saída se não existir

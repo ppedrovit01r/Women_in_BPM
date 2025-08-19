@@ -22,8 +22,7 @@ QUOTA_EXCEEDED_MESSAGE = "API quota exceeded"  # Message to look for in API resp
 
 # Configurações da NamSor API
 NAMSOR_BASE_URL = 'https://v2.namsor.com/NamSorAPIv2/api2/json/gender'
-#NAMSOR_API_KEY = '848cb906931f9c63c9532a912e8dfda9'  # Obtenha em https://www.namsor.com/
-#NAMSOR_API_KEY = 'a2f3089a0dff7c55c36cf4fc23e822b0' / '348923ba5a6c9982db1eff7eb2718d8b'
+#NAMSOR_API_KEY =  # Obtenha em https://www.namsor.com/
 CONFIDENCE_THRESHOLD = 0.75  # 75% de confiança mínima
 REQUEST_DELAY = 1  # Delay entre chamadas em segundos
 

@@ -1,7 +1,10 @@
 import csv
 import json
-import requests
+from urllib.request import urlopen
 import unidecode
+
+# Configuração da Gender API
+API_KEY = ""  # Substitua pela sua chave de API da Gender API
 
 def parse_valid_name(name):
     # Remove acentos e espaços desnecessários
@@ -11,27 +14,22 @@ def parse_valid_name(name):
 
 def get_gender(first_name):
     try:
-        # URL da API com o nome formatado
-        url = 'https://api.genderize.io?name=' + parse_valid_name(first_name) + '&apikey=4661e8f7692ad7106c16dbb9dc397948'
-        print(f"Enviando requisição para: {url}")  # Depuração: Mostra a URL da requisição
-
-        genderize_response = requests.get(url)
-        print(f"Resposta da API: {genderize_response.text}")  # Depuração: Mostra a resposta da API
-
-        parsed_gender = json.loads(genderize_response.content)
+        # Formata a URL da Gender API
+        url = f"https://gender-api.com/get?key={API_KEY}&name={first_name}"
         
-        # Verifica se a resposta contém as chaves esperadas
-        if 'probability' in parsed_gender and 'count' in parsed_gender:
-            if parsed_gender['probability'] >= 0.75 and parsed_gender['count'] >= 2:
-                return parsed_gender['gender']
-            else:
-                return 'undefined'
-        else:
-            # Se a resposta não contém as chaves esperadas, retorna 'undefined'
-            return 'undefined'
+        # Faz a requisição à API
+        response = urlopen(url)
+        decoded = response.read().decode('utf-8')
+        data = json.loads(decoded)
+        
+        # Depuração: Mostra a resposta completa da API
+        print(f"Resposta da API para {first_name}: {data}")
+        
+        # Retorna o gênero determinado
+        return data.get("gender", "undefined")
     except Exception as e:
         print(f"Erro ao acessar a API para o nome {first_name}: {e}")
-        return 'undefined'
+        return "undefined"
 
 def main():
     with open('womenLib.csv', newline='', encoding='utf-8') as csvfile:
@@ -42,6 +40,11 @@ def main():
             writer.writeheader()
 
             for row in spamreader:
+                # Verifica se a linha tem pelo menos 4 colunas
+                if len(row) < 4:
+                    print(f"Linha ignorada (formato inválido): {row}")
+                    continue
+
                 authors = row[3].split(';')
                 women_count = 0
                 men_count = 0
@@ -66,7 +69,13 @@ def main():
                             first_author_gender = gender
                         if i == len(authors) - 1:
                             last_author_gender = gender
-                print(f"{i} - Encontrou: {women_count} mulheres, {men_count} homens e {undefined_count} indeterminados.")
+
+                print(f"Artigo: {row[4]}")
+                print(f"Autores: {authors}")
+                print(f"Mulheres: {women_count}, Homens: {men_count}, Indefinidos: {undefined_count}")
+                print(f"Primeiro autor é mulher? {first_author_gender == 'female'}")
+                print(f"Último autor é mulher? {last_author_gender == 'female'}")
+                print("-" * 50)
 
                 writer.writerow({
                     'Title': row[4],

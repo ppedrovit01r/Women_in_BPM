@@ -1,62 +1,68 @@
 # Women_in_BPM
-Este projeto utiliza metadados de artigos acadêmicos (extraídos de ferramentas como Zotero) e APIs de gênero (como NamSor, que permite um grande número de consultas grátis) para quantificar e qualificar a participação de mulheres na pesquisa científica.
-Apesar do foco inicial em Business Process Management (BPM), a solução é adaptável a qualquer área do conhecimento e pode ser estendida para análises de diversidade além do gênero feminino.
+This project uses metadata from academic articles (extracted from tools like Zotero) and gender APIs (such as NamSor, which allows a large number of free queries) to quantify and qualify women's participation in scientific research.
+Although initially focused on Business Process Management (BPM), the solution is adaptable to any knowledge domain and can be extended to diversity analyses beyond women.
 
-## Estrutura
+## Structure
 ```
-pasta_principal/
+main_folder/
 │
-├── 📄 assess_gender_pedro_namsor.py       # Versão principal que processa artigos usando Namsor API
-├── 📄 assess_gender_pedro.py              # Versão alternativa usando Genderize.io API
-├── 📄 assess_gender_pedro_genderapi.py    # Versão alternativa usando Gender API
-├── 📄 assess_gender_pedro_nameapi.py      # Versão alternativa usando NameAPI
-├── 📄 womenLib.csv                        # Base de dados principal (exportada do Zotero)
-├── 📄 womenLibrary.bib                    # Referências bibliográficas no formato BibTeX
+├── 📄 assess_gender_namsor.py             # Main version that processes articles using Namsor API
+├── 📄 womenLib.csv                        # Main database (exported from Zotero)
+├── 📄 womenLibrary.bib                    # Bibliographic references in BibTeX format
 │
-├── 📁 .vscode/                            # [IGNORAR] Configurações do ambiente de desenvolvimento
-│   └── 📄 settings.json                   # Configurações específicas do VSCode
+├── 📁 .vscode/                            # [IGNORE] Development environment settings
+│   └── 📄 settings.json                   # VSCode-specific settings
 │
-├── 📁 minuzzo/                            # Código legado da pesquisadora Thayna Minuzzo
-│   ├── 📄 assess_gender.py                # Versão original do processamento de gênero
-│   ├── 📄 generate_insights_authors.py    # Gera estatísticas de autores por ano
-│   ├── 📄 scatter_map.py                  # Mapa de dispersão (em desenvolvimento)
-│   ├── 📄 send_authors_data.py            # Exportação para ElasticSearch (autores)
-│   ├── 📄 send_files.py                   # Exportação para ElasticSearch (artigos)
-│   └── 📄 wordcould.py                    # Nuvem de palavras das tags manuais
+├── 📁 minuzzo/                            # Legacy code from researcher Thayna Minuzzo
+│   ├── 📄 assess_gender.py                # Original gender processing version
+│   ├── 📄 generate_insights_authors.py    # Generates author statistics per year
+│   ├── 📄 scatter_map.py                  # Scatter map (under development)
+│   ├── 📄 send_authors_data.py            # Export to ElasticSearch (authors)
+│   ├── 📄 send_files.py                   # Export to ElasticSearch (articles)
+│   └── 📄 wordcould.py                    # Word cloud of manual tags
 │
-├── 📁 auxiliar/                           # Ferramentas de suporte
-│   ├── 📄 count_names.py                  # Conta frequência de nomes na base
-│   ├── 📄 names_pedro.py                  # Extrai lista de primeiros nomes
-│   └── 📄 names.csv                       # Saída do names_pedro.py
+├── 📁 under_construction/                 # Tools in development
+│   ├── 📄 assess_gender_genderize.py      # Alternative version using Genderize.io API
+│   ├── 📄 assess_gender_genderapi.py      # Alternative version using Gender API
+│   ├── 📄 assess_gender_nameapi.py        # Alternative version using NameAPI
+│   └── 📄 create_worldmap.py              # Uses APIs to discover article locations
 │
-└── 📁 assessed/                           # Resultados das análises
-    ├── 📄 Authors_*.csv                   # Dados completos por autor (timestamp)
-    ├── 📄 LibAssessed_*.csv               # Metadados processados por artigo
-    ├── 📄 YearlyReport_*.csv              # Estatísticas anuais de gênero
-    └── 📄 gender_cache.json               # Cache de consultas a APIs
+├── 📁 auxiliary/                          # Support tools
+│   ├── 📄 count_names.py                  # Counts name frequency in the database
+│   ├── 📄 names_pedro.py                  # Extracts list of first names
+│   ├── 📄 names.csv                       # Output from names_pedro.py
+│   ├── 📄 create_worldcloud.py            # Creates a word cloud
+│   ├── 📄 create_worldmap_no_api.py       # Searches country information to create a map
+│   └── 📄 generate_graphs.py              # Automatically generates comparative graphs
+│
+└── 📁 assessed/                           # Analysis results
+    ├── 📄 Authors_*.csv                   # Complete author data (timestamped)
+    ├── 📄 LibAssessed_*.csv               # Processed article metadata
+    ├── 📄 YearlyReport_*.csv              # Annual gender statistics
+    └── 📄 gender_cache.json               # API query cache
 ```
-## Como Usar?
-### Pré-requisitos
+## How to Use?
+### Prerequisites
 - Python 3.x
-- Dependências: requests, unidecode, csv, json
-- Chave de Autenticação NamSor (Obtenha em https://www.namsor.com/)
+- Dependencies: requests, unidecode, csv, json
+- NamSor Authentication Key (Get it at https://www.namsor.com/)
 
-### Execução
-1. Extrair dados do Zotero (exportar para CSV)
-2. Processar os artigos:
+### Execution
+1. Extract data from Zotero (export to CSV)
+2. Process articles:
 python assess_gender_pedro_namsor.py [-h] [-i INPUT] -k KEY
-- INPUT: nome do arquivo csv extraído do Zotero
-- KEY: chave de autenticação NamSor
+- INPUT: name of the CSV file exported from Zotero
+- KEY: NamSor authentication key
 
-## Detalhes das Pastas
-### .vscode/ (Ignorar)
-Gerada automaticamente pelo Visual Studio Code. Contém configurações locais da IDE.
+## Folder Details
+### .vscode/ (Ignore)
+Automatically generated by Visual Studio Code. Contains local IDE settings.
 
-### minuzzo/ (Legado)
-Arquivos da pesquisadora Thayna Minuzzo, mantidos para referência histórica ou comparação.
+### minuzzo/ (Legacy)
+Files from researcher Thayna Minuzzo, maintained for historical reference or comparison.
 
-### assessed/ (Saídas)
-Gerada automaticamente durante a execução. Armazena:
-- Resultados processados.
-- Logs de execução.
-- Cache de nomes.
+### assessed/ (Outputs)
+Automatically generated during execution. Stores:
+- Processed results
+- Execution logs
+- Name cache
