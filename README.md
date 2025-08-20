@@ -29,8 +29,8 @@ main_folder/
 │
 ├── 📁 auxiliary/                          # Support tools
 │   ├── 📄 count_names.py                  # Counts name frequency in the database
-│   ├── 📄 names_pedro.py                  # Extracts list of first names
-│   ├── 📄 names.csv                       # Output from names_pedro.py
+│   ├── 📄 names_extract.py                # Extracts list of first names
+│   ├── 📄 names.csv                       # Output from names_extract.py
 │   ├── 📄 create_worldcloud.py            # Creates a word cloud
 │   ├── 📄 create_worldmap_no_api.py       # Searches country information to create a map
 │   └── 📄 generate_graphs.py              # Automatically generates comparative graphs
