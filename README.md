@@ -1,45 +1,31 @@
 # Women_in_BPM
-This project uses metadata from academic articles (extracted from tools like Zotero) and gender APIs (such as NamSor, which allows a large number of free queries) to quantify and qualify women's participation in scientific research.
-Although initially focused on Business Process Management (BPM), the solution is adaptable to any knowledge domain and can be extended to diversity analyses beyond women.
+This repository provides an automated pipeline to quantify and qualify women's participation in scientific research. By leveraging bibliographic metadata (exported from reference managers like Zotero) and gender-inference APIs (primarily NamSor), this tool extracts and analyzes authorship demographics. 
+
+While originally tailored to map the Business Process Management (BPM) academic community, the architecture is highly adaptable to any knowledge domain and can be extended to analyze other demographic factors.
 
 ## Structure
 ```
 main_folder/
 │
-├── 📄 assess_gender_namsor.py             # Main version that processes articles using Namsor API
-├── 📄 womenLib.csv                        # Main database (exported from Zotero)
-├── 📄 womenLibrary.bib                    # Bibliographic references in BibTeX format
+├── 📄 assess_gender_namsor.py       # Main execution script (NamSor API integration)
+├── 📄 womenLib.csv                  # Main metadata database (Zotero export)
+├── 📄 womenLibrary.bib              # Bibliographic references (BibTeX format)
 │
-├── 📁 .vscode/                            # [IGNORE] Development environment settings
-│   └── 📄 settings.json                   # VSCode-specific settings
+├── 📁 assessed/                     # Output directory (Auto-generated)
+│   ├── Authors_*.csv                # Complete extracted author data
+│   ├── LibAssessed_*.csv            # Processed article metadata
+│   ├── YearlyReport_*.csv           # Annual gender statistics and trends
+│   └── gender_cache.json            # Local cache to minimize API calls
 │
-├── 📁 minuzzo/                            # Legacy code from researcher Thayna Minuzzo
-│   ├── 📄 assess_gender.py                # Original gender processing version
-│   ├── 📄 generate_insights_authors.py    # Generates author statistics per year
-│   ├── 📄 scatter_map.py                  # Scatter map (under development)
-│   ├── 📄 send_authors_data.py            # Export to ElasticSearch (authors)
-│   ├── 📄 send_files.py                   # Export to ElasticSearch (articles)
-│   └── 📄 wordcould.py                    # Word cloud of manual tags
-│
-├── 📁 under_construction/                 # Tools in development
-│   ├── 📄 assess_gender_genderize.py      # Alternative version using Genderize.io API
-│   ├── 📄 assess_gender_genderapi.py      # Alternative version using Gender API
-│   ├── 📄 assess_gender_nameapi.py        # Alternative version using NameAPI
-│   └── 📄 create_worldmap.py              # Uses APIs to discover article locations
-│
-├── 📁 auxiliary/                          # Support tools
-│   ├── 📄 count_names.py                  # Counts name frequency in the database
-│   ├── 📄 names_extract.py                # Extracts list of first names
-│   ├── 📄 names.csv                       # Output from names_extract.py
-│   ├── 📄 create_worldcloud.py            # Creates a word cloud
-│   ├── 📄 create_worldmap_no_api.py       # Searches country information to create a map
-│   └── 📄 generate_graphs.py              # Automatically generates comparative graphs
-│
-└── 📁 assessed/                           # Analysis results
-    ├── 📄 Authors_*.csv                   # Complete author data (timestamped)
-    ├── 📄 LibAssessed_*.csv               # Processed article metadata
-    ├── 📄 YearlyReport_*.csv              # Annual gender statistics
-    └── 📄 gender_cache.json               # API query cache
+└── 📁 auxiliary/                    # Support tools for data extraction & visualization
+    ├── 📄 names_extract.py          # Extracts distinct first names
+    ├── 📄 generate_graphs.py        # Automatically generates comparative charts
+    ├── 📄 process_authors.py        # Make sure there are no duplicate authors in the file
+    ├── 📄 coauthorship_network.py   # Creates a co-authorship network
+    ├── 📄 cochran.py                # It performs the Cochran calculation and automatically assigns
+                                     the appropriate number of authors based on the original file.
+    ├── 📄 countries.py              # Creates world maps with manually annotated information.
+    └── 📄 create_worldcloud.py      # Generates topical word clouds
 ```
 ## How to Use?
 ### Prerequisites
@@ -47,22 +33,23 @@ main_folder/
 - Dependencies: requests, unidecode, csv, json
 - NamSor Authentication Key (Get it at https://www.namsor.com/)
 
-### Execution
-1. Extract data from Zotero (export to CSV)
-2. Process articles:
-python assess_gender_pedro_namsor.py [-h] [-i INPUT] -k KEY
-- INPUT: name of the CSV file exported from Zotero
-- KEY: NamSor authentication key
+### Main Execution
+1. Prepare your data
+Export your bibliographic library from Zotero (or similar tools) in CSV format and place it in the root directory.
+2. Run the main processing script
+Execute the primary script via terminal, passing your input file and your NamSor API key as arguments:
+```python assess_gender_namsor.py -i womenLib.csv -k YOUR_API_KEY```
+- -i : The name of your input CSV file containing the article metadata.
+- -k : Your NamSor authentication key.
+3. Access your results
+Once the execution is complete, navigate to the assessed/ folder. The script will generate timestamped CSV files containing the categorized authors, processed libraries, and a summarized yearly report of the gender distribution.
 
-## Folder Details
-### .vscode/ (Ignore)
-Automatically generated by Visual Studio Code. Contains local IDE settings.
+---
 
-### minuzzo/ (Legacy)
-Files from researcher Thayna Minuzzo, maintained for historical reference or comparison.
+## Support and Contact
 
-### assessed/ (Outputs)
-Automatically generated during execution. Stores:
-- Processed results
-- Execution logs
-- Name cache
+This project was developed and is maintained as part of the initiatives of the **BPM Research Lab @UFRGS** (Business Process Management Research Laboratory of the Federal University of Rio Grande do Sul).
+
+Follow our research, publications, and the development of new tools focused on the academic and industrial BPM community:
+
+* 📸 **Instagram:** [@bpmlabufrgs](https://www.instagram.com/bpmlabufrgs/)

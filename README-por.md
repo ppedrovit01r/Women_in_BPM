@@ -1,45 +1,31 @@
 # Women_in_BPM
-Este projeto utiliza metadados de artigos acadêmicos (extraídos de ferramentas como Zotero) e APIs de gênero (como NamSor, que permite um grande número de consultas grátis) para quantificar e qualificar a participação de mulheres na pesquisa científica.
-Apesar do foco inicial em Business Process Management (BPM), a solução é adaptável a qualquer área do conhecimento e pode ser estendida para análises de diversidade além do gênero feminino.
+Este repositório fornece um pipeline automatizado para quantificar e qualificar a participação de mulheres na pesquisa científica. Aproveitando metadados bibliográficos (exportados de gerenciadores de referência como o Zotero) e APIs de inferência de gênero (principalmente NamSor), esta ferramenta extrai e analisa a demografia de autoria.
+
+Embora originalmente adaptada para mapear a comunidade acadêmica de Gestão de Processos de Negócio (BPM), a arquitetura é altamente adaptável a qualquer domínio de conhecimento e pode ser estendida para analisar outros fatores demográficos.
 
 ## Estrutura
 ```
-pasta_principal/
+main_folder/
 │
-├── 📄 assess_gender_namsor.py             # Versão principal que processa artigos usando Namsor API
-├── 📄 womenLib.csv                        # Base de dados principal (exportada do Zotero)
-├── 📄 womenLibrary.bib                    # Referências bibliográficas no formato BibTeX
+├── 📄 assess_gender_namsor.py       # Script principal de execução (integração com a API NamSor)
+├── 📄 womenLib.csv                  # Banco de dados principal de metadados (exportação do Zotero)
+├── 📄 womenLibrary.bib              # Referências bibliográficas (formato BibTeX)
 │
-├── 📁 .vscode/                            # [IGNORAR] Configurações do ambiente de desenvolvimento
-│   └── 📄 settings.json                   # Configurações específicas do VSCode
+├── 📁 assessed/                     # Diretório de saída (Gerado automaticamente)
+│   ├── Authors_*.csv                # Dados completos extraídos dos autores
+│   ├── LibAssessed_*.csv            # Metadados dos artigos processados
+│   ├── YearlyReport_*.csv           # Estatísticas anuais de gênero e tendências
+│   └── gender_cache.json            # Cache local para minimizar chamadas de API
 │
-├── 📁 minuzzo/                            # Código legado da pesquisadora Thayna Minuzzo
-│   ├── 📄 assess_gender.py                # Versão original do processamento de gênero
-│   ├── 📄 generate_insights_authors.py    # Gera estatísticas de autores por ano
-│   ├── 📄 scatter_map.py                  # Mapa de dispersão (em desenvolvimento)
-│   ├── 📄 send_authors_data.py            # Exportação para ElasticSearch (autores)
-│   ├── 📄 send_files.py                   # Exportação para ElasticSearch (artigos)
-│   └── 📄 wordcould.py                    # Nuvem de palavras das tags manuais
-│
-├── 📁 under_construction/                 # Ferramentas em processo de construção
-│   ├── 📄 assess_gender_genderize.py      # Versão alternativa usando Genderize.io API
-│   ├── 📄 assess_gender_genderapi.py      # Versão alternativa usando Gender API
-│   ├── 📄 assess_gender_nameapi.py        # Versão alternativa usando NameAPI
-│   └── 📄 create_worldmap.py              # Utiliza APIs para descobrir a localização dos artigos
-│
-├── 📁 auxiliar/                           # Ferramentas de suporte
-│   ├── 📄 count_names.py                  # Conta frequência de nomes na base
-│   ├── 📄 names_pedro.py                  # Extrai lista de primeiros nomes
-│   ├── 📄 names.csv                       # Saída do names_pedro.py
-│   ├── 📄 create_worldcloud.py            # Cria uma nuvem de palavras
-│   ├── 📄 create_worldmap_no_api.py       # Busca informações de países para criar um mapa
-│   └── 📄 generate_graphs.py              # Automatizamente gera uma série de gráficos comparativos
-│
-└── 📁 assessed/                           # Resultados das análises
-    ├── 📄 Authors_*.csv                   # Dados completos por autor (timestamp)
-    ├── 📄 LibAssessed_*.csv               # Metadados processados por artigo
-    ├── 📄 YearlyReport_*.csv              # Estatísticas anuais de gênero
-    └── 📄 gender_cache.json               # Cache de consultas a APIs
+└── 📁 auxiliary/                    # Ferramentas de suporte para extração e visualização de dados
+    ├── 📄 names_extract.py          # Extrai primeiros nomes distintos
+    ├── 📄 generate_graphs.py        # Gera gráficos comparativos automaticamente
+    ├── 📄 process_authors.py        # Garante que não haja autores duplicados no arquivo
+    ├── 📄 coauthorship_network.py   # Cria uma rede de coautoria
+    ├── 📄 cochran.py                # Realiza o cálculo de Cochran e atribui automaticamente
+                                     o número apropriado de autores com base no arquivo original.
+    ├── 📄 countries.py              # Cria mapas mundiais com informações anotadas manualmente.
+    └── 📄 create_worldcloud.py      # Gera nuvens de palavras temáticas
 ```
 ## Como Usar?
 ### Pré-requisitos
@@ -47,22 +33,24 @@ pasta_principal/
 - Dependências: requests, unidecode, csv, json
 - Chave de Autenticação NamSor (Obtenha em https://www.namsor.com/)
 
-### Execução
-1. Extrair dados do Zotero (exportar para CSV)
-2. Processar os artigos:
-python assess_gender_pedro_namsor.py [-h] [-i INPUT] -k KEY
-- INPUT: nome do arquivo csv extraído do Zotero
-- KEY: chave de autenticação NamSor
+### Execução Principal
+1. Prepare seus dados
+Exporte sua biblioteca bibliográfica do Zotero (ou ferramentas similares) no formato CSV e coloque-a no diretório raiz.
 
-## Detalhes das Pastas
-### .vscode/ (Ignorar)
-Gerada automaticamente pelo Visual Studio Code. Contém configurações locais da IDE.
+2. Execute o script principal de processamento
+Execute o script principal via terminal, passando seu arquivo de entrada e sua chave da API NamSor como argumentos:
+```python assess_gender_namsor.py -i womenLib.csv -k SUA_CHAVE_DA_API```
+- -i : O nome do seu arquivo CSV de entrada contendo os metadados dos artigos.
+- -k : Sua chave de autenticação NamSor.
 
-### minuzzo/ (Legado)
-Arquivos da pesquisadora Thayna Minuzzo, mantidos para referência histórica ou comparação.
+3. Acesse seus resultados
+Assim que a execução for concluída, navegue até a pasta assessed/. O script gerará arquivos CSV com carimbo de data/hora contendo os autores categorizados, bibliotecas processadas e um relatório anual resumido da distribuição de gênero.
 
-### assessed/ (Saídas)
-Gerada automaticamente durante a execução. Armazena:
-- Resultados processados.
-- Logs de execução.
-- Cache de nomes.
+---
+
+## Apoio e Contato
+
+Este projeto foi desenvolvido e é mantido como parte das iniciativas do **BPM Research Lab @UFRGS** (Laboratório de Pesquisa em Gestão de Processos de Negócios da Universidade Federal do Rio Grande do Sul).
+
+Acompanhe nossas pesquisas, publicações e o desenvolvimento de novas ferramentas focadas na comunidade acadêmica e industrial de BPM:
+* 📸 **Instagram:** [@bpmlabufrgs](https://www.instagram.com/bpmlabufrgs/)
